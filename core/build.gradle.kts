@@ -41,10 +41,10 @@ kotlin {
 //        browser()
 //    }
 
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        browser()
-    }
+//    @OptIn(ExperimentalWasmDsl::class)
+//    wasmJs {
+//        browser()
+//    }
 
     sourceSets {
         all {
@@ -53,22 +53,11 @@ kotlin {
             }
         }
 
-        val nonWebTargets = listOf(
-            androidMain.get(),
-            appleMain.get(),
-            getByName("desktopMain")
-        )
-
-        nonWebTargets.forEach { target ->
-            target.dependencies {
-                implementation(libs.androidx.datastore)
-                implementation(libs.androidx.datastore.preferences)
-            }
-        }
-
         commonMain.dependencies {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.koin.core)
+            implementation(libs.androidx.datastore)
+            implementation(libs.androidx.datastore.preferences)
         }
     }
 }

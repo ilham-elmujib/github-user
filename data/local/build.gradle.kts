@@ -42,10 +42,10 @@ kotlin {
 //        browser()
 //    }
 
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        browser()
-    }
+//    @OptIn(ExperimentalWasmDsl::class)
+//    wasmJs {
+//        browser()
+//    }
 
     sourceSets {
         all {
@@ -54,26 +54,23 @@ kotlin {
             }
         }
 
-        val nonWebTargets = listOf(
-            androidMain.get(),
-            appleMain.get(),
-            getByName("desktopMain")
-        )
-
-        nonWebTargets.forEach { target ->
-            target.dependencies {
-                implementation(libs.androidx.room.runtime)
-                implementation(libs.androidx.sqlite.bundled)
-            }
-        }
-
         commonMain.dependencies {
             implementation(libs.koin.core)
             implementation(libs.koin.annotations)
+
+            implementation(libs.androidx.room.runtime)
+            implementation(libs.androidx.sqlite.bundled)
         }
     }
 }
 
 room {
     schemaDirectory("$projectDir/schemas")
+}
+
+dependencies {
+    add("kspAndroid", libs.androidx.room.compiler)
+    add("kspIosSimulatorArm64", libs.androidx.room.compiler)
+    add("kspIosArm64", libs.androidx.room.compiler)
+    add("kspDesktop", libs.androidx.room.compiler)
 }

@@ -34,7 +34,7 @@ plugins {
 
 include(":desktopApp")
 include(":androidApp")
-include(":webApp")
+//include(":webApp")
 include(":core")
 include(":core-ui")
 include(":data:local")

@@ -42,10 +42,10 @@ kotlin {
 //        browser()
 //    }
 
-    @OptIn(ExperimentalWasmDsl::class)
-    wasmJs {
-        browser()
-    }
+//    @OptIn(ExperimentalWasmDsl::class)
+//    wasmJs {
+//        browser()
+//    }
 
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
     dependencies {

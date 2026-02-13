@@ -1,5 +1,5 @@
 import io.ktor.client.engine.HttpClientEngine
 
-expect class PlatformHttpClientEngine {
+expect class HttpClientFactory {
     val engine: HttpClientEngine
 }

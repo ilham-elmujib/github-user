@@ -6,7 +6,7 @@ import com.chuckerteam.chucker.api.RetentionManager
 import io.ktor.client.engine.okhttp.OkHttp
 import okhttp3.logging.HttpLoggingInterceptor
 
-actual class PlatformHttpClientEngine(
+actual class HttpClientFactory(
     private val context: Context,
 ) {
 
