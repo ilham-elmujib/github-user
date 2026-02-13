@@ -1,10 +1,10 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidMultiplatformLibrary)
+    alias(libs.plugins.koin.compiler)
     alias(libs.plugins.ksp)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.ktorfit)
@@ -39,18 +39,13 @@ kotlin {
 
     jvm("desktop")
 
-    js {
-        browser()
-    }
+//    js {
+//        browser()
+//    }
 
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser()
-    }
-
-    @OptIn(ExperimentalKotlinGradlePluginApi::class)
-    dependencies {
-        implementation(libs.ktorfit)
     }
 
     sourceSets {
@@ -59,5 +54,43 @@ kotlin {
                 optIn("kotlin.time.ExperimentalTime")
             }
         }
+
+        commonMain.dependencies {
+            implementation(project(":core"))
+            implementation(libs.koin.core)
+            implementation(libs.koin.annotations)
+            implementation(libs.bundles.ktor.common)
+            implementation(libs.ktorfit)
+            implementation(libs.sandwich)
+            implementation(libs.sandwich.ktorfit)
+        }
+
+        androidMain.dependencies {
+            implementation(libs.ktor.client.android)
+            if (project.gradle.startParameter.taskNames.any { it.contains("Debug") }) {
+                implementation(libs.chucker)
+            }else{
+                implementation(libs.chucker.no.op)
+            }
+            implementation(libs.okhttp)
+            implementation(libs.logging.interceptor)
+        }
+
+        appleMain.dependencies {
+            implementation(libs.ktor.client.apple)
+        }
+
+        getByName("desktopMain").dependencies {
+            implementation(libs.ktor.client.desktop)
+        }
+
+        webMain.dependencies {
+            implementation(libs.ktor.client.web)
+        }
+
     }
+}
+
+ktorfit {
+    compilerPluginVersion.set("2.3.3")
 }

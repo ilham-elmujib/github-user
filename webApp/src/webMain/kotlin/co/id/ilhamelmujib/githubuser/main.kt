@@ -2,6 +2,7 @@ package co.id.ilhamelmujib.githubuser
 
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.window.ComposeViewport
+import co.id.ilhamelmujib.githubuser.di.initKoin
 import kotlin.js.ExperimentalWasmJsInterop
 import kotlin.js.JsModule
 
@@ -13,7 +14,9 @@ private val jsJodaTz = JsJodaTimeZoneModule
 
 @OptIn(ExperimentalComposeUiApi::class)
 fun main() {
-    ComposeViewport {
-        App()
+    initKoin {
+        ComposeViewport {
+            App()
+        }
     }
 }

@@ -39,9 +39,9 @@ kotlin {
 
     jvm("desktop")
 
-    js {
-        browser()
-    }
+//    js {
+//        browser()
+//    }
 
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
@@ -50,6 +50,8 @@ kotlin {
 
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
     dependencies {
+        implementation(project(":core"))
+        implementation(project(":domain"))
         implementation(libs.compose.runtime)
         implementation(libs.compose.foundation)
         implementation(libs.compose.material3)

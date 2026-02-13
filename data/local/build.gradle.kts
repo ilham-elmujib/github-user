@@ -1,10 +1,10 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidMultiplatformLibrary)
+    alias(libs.plugins.koin.compiler)
     alias(libs.plugins.ksp)
     alias(libs.plugins.androidx.room)
 }
@@ -38,17 +38,14 @@ kotlin {
 
     jvm("desktop")
 
-    js {
-        browser()
-    }
+//    js {
+//        browser()
+//    }
 
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser()
     }
-
-    @OptIn(ExperimentalKotlinGradlePluginApi::class)
-    dependencies { }
 
     sourceSets {
         all {
@@ -57,18 +54,23 @@ kotlin {
             }
         }
 
-        val nonWebMain by creating {
-            dependsOn(commonMain.get())
-            dependencies {
+        val nonWebTargets = listOf(
+            androidMain.get(),
+            appleMain.get(),
+            getByName("desktopMain")
+        )
+
+        nonWebTargets.forEach { target ->
+            target.dependencies {
                 implementation(libs.androidx.room.runtime)
                 implementation(libs.androidx.sqlite.bundled)
             }
         }
 
-        // Connect supported targets to the nonWebMain source set
-        androidMain.get().dependsOn(nonWebMain)
-        appleMain.get().dependsOn(nonWebMain)
-        jvmMain.get().dependsOn(nonWebMain)
+        commonMain.dependencies {
+            implementation(libs.koin.core)
+            implementation(libs.koin.annotations)
+        }
     }
 }
 
