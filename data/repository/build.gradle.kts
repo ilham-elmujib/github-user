@@ -7,12 +7,11 @@ plugins {
     alias(libs.plugins.androidMultiplatformLibrary)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-    alias(libs.plugins.koin.compiler)
 }
 
 kotlin {
     androidLibrary {
-        namespace = "co.id.ilhamelmujib.githubuser.android"
+        namespace = "co.id.ilhamelmujib.githubuser.data.repository"
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
 
@@ -58,9 +57,9 @@ kotlin {
         implementation(libs.compose.uiToolingPreview)
         implementation(libs.androidx.lifecycle.viewmodelCompose)
         implementation(libs.androidx.lifecycle.runtimeCompose)
-        implementation(libs.koin.core)
-        implementation(libs.koin.annotations)
+
         implementation(libs.kotlinx.datetime)
+
         testImplementation(libs.kotlin.test)
     }
 

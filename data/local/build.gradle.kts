@@ -5,14 +5,13 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidMultiplatformLibrary)
-    alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.composeCompiler)
-    alias(libs.plugins.koin.compiler)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.androidx.room)
 }
 
 kotlin {
     androidLibrary {
-        namespace = "co.id.ilhamelmujib.githubuser.android"
+        namespace = "co.id.ilhamelmujib.githubuser.data.local"
         compileSdk = libs.versions.android.compileSdk.get().toInt()
         minSdk = libs.versions.android.minSdk.get().toInt()
 
@@ -49,20 +48,7 @@ kotlin {
     }
 
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
-    dependencies {
-        implementation(libs.compose.runtime)
-        implementation(libs.compose.foundation)
-        implementation(libs.compose.material3)
-        implementation(libs.compose.ui)
-        implementation(libs.compose.components.resources)
-        implementation(libs.compose.uiToolingPreview)
-        implementation(libs.androidx.lifecycle.viewmodelCompose)
-        implementation(libs.androidx.lifecycle.runtimeCompose)
-        implementation(libs.koin.core)
-        implementation(libs.koin.annotations)
-        implementation(libs.kotlinx.datetime)
-        testImplementation(libs.kotlin.test)
-    }
+    dependencies { }
 
     sourceSets {
         all {
@@ -70,9 +56,22 @@ kotlin {
                 optIn("kotlin.time.ExperimentalTime")
             }
         }
+
+        val nonWebMain by creating {
+            dependsOn(commonMain.get())
+            dependencies {
+                implementation(libs.androidx.room.runtime)
+                implementation(libs.androidx.sqlite.bundled)
+            }
+        }
+
+        // Connect supported targets to the nonWebMain source set
+        androidMain.get().dependsOn(nonWebMain)
+        appleMain.get().dependsOn(nonWebMain)
+        jvmMain.get().dependsOn(nonWebMain)
     }
 }
 
-dependencies {
-    androidRuntimeClasspath(libs.compose.uiTooling)
+room {
+    schemaDirectory("$projectDir/schemas")
 }
