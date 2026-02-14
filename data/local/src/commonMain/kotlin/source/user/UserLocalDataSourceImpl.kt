@@ -11,7 +11,15 @@ class UserLocalDataSourceImpl(
         dao.insertAll(users)
     }
 
+    override suspend fun update(user: UserEntity) {
+        dao.update(user)
+    }
+
     override fun getAll(): Flow<List<UserEntity>> {
         return dao.getAll()
+    }
+
+    override suspend fun getDetail(login: String): Flow<UserEntity> {
+        return dao.getDetail(login)
     }
 }

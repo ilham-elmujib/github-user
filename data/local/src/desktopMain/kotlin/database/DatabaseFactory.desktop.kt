@@ -7,7 +7,8 @@ import java.io.File
 
 actual class DatabaseFactory {
     actual fun build(): AppDatabase {
-        val dbFile = File(System.getProperty("java.io.tmpdir"), DATABASE_NAME)
+        val dbFile = File(System.getProperty("user.home"), DATABASE_NAME)
+        println("Location: ${dbFile.absolutePath}")
         return Room.databaseBuilder<AppDatabase>(
             name = dbFile.absolutePath,
         )

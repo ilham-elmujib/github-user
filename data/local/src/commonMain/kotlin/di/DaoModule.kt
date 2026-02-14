@@ -6,4 +6,5 @@ import org.koin.dsl.module
 
 val daoModule : Module = module {
     single { get<AppDatabase>().userDao() }
+    single { get<AppDatabase>().repoDao() }
 }

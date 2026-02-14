@@ -18,7 +18,7 @@ abstract class BaseScreen<VM : BaseViewModel<Event, State, Effect>, Event : UiEv
     protected abstract fun viewModel(): VM
 
     @Composable
-    open fun Content(navController: NavController) {
+    open fun Content() {
         val viewModel = viewModel()
 
         val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -37,7 +37,6 @@ abstract class BaseScreen<VM : BaseViewModel<Event, State, Effect>, Event : UiEv
                 handleEffect(
                     uiState = uiState,
                     uiEffect = uiEffect,
-                    navController = navController,
                     snackBarHostState = snackBarHostState
                 )
             }
@@ -93,7 +92,6 @@ abstract class BaseScreen<VM : BaseViewModel<Event, State, Effect>, Event : UiEv
     protected open suspend fun handleEffect(
         uiState: State,
         uiEffect: Effect,
-        navController: NavController,
         snackBarHostState: SnackbarHostState
     ) = Unit
 }

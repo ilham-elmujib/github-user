@@ -4,6 +4,7 @@ import model.User
 import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
-    suspend fun getAndSaveAll(): Flow<List<User>>
+    suspend fun getAll(): Flow<List<User>>
+    suspend fun getDetail(login: String): Flow<User>
 }
 

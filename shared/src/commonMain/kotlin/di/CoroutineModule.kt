@@ -5,7 +5,7 @@ import kotlinx.coroutines.IO
 import org.koin.dsl.module
 
 val coroutinesModule = module {
-    factory { Dispatchers.Default }
-    factory { Dispatchers.IO }
-    factory { Dispatchers.Main }
+    single { Dispatchers.Default }
+    single { Dispatchers.IO }
+    single { Dispatchers.Main }
 }

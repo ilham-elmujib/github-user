@@ -5,11 +5,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import feature.user.viewmodel.UserContract
-import feature.user.component.UserEmpty
-import feature.user.component.UserError
+import component.molecule.EmptyContent
+import component.organism.ErrorContent
 import feature.user.component.UserList
-import feature.user.component.UserLoading
+import component.molecule.LoadingContent
+import github_user.shared.generated.resources.Res
+import github_user.shared.generated.resources.global_error_retry
+import github_user.shared.generated.resources.global_loading_message
+import github_user.shared.generated.resources.ic_search
+import github_user.shared.generated.resources.user_empty_message
 import model.UiResult
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun UserContent(
@@ -18,30 +24,37 @@ fun UserContent(
     uiState: UserContract.State
 ) {
     Box(modifier = modifier.fillMaxSize()) {
-        when (uiState.userResult) {
+        when (uiState.usersResult) {
             UiResult.Loading -> {
-                UserLoading()
+                LoadingContent(
+                    message = stringResource(Res.string.global_loading_message)
+                )
             }
 
             is UiResult.Success -> {
-                val users = uiState.userResult.data
+                val users = uiState.usersResult.data
                 if (users.isEmpty()) {
-                    UserEmpty()
+                    EmptyContent(
+                        resource = Res.drawable.ic_search,
+                        message = stringResource(Res.string.user_empty_message)
+                    )
                 } else {
                     UserList(
                         users = users,
                         onItemClick = {
-                            onEvent(UserContract.Event.OnNavigateToRepo)
+                            onEvent(UserContract.Event.OnNavigateToRepo(it.login))
                         }
                     )
                 }
             }
 
             is UiResult.Error -> {
-                UserError(
-                    message = uiState.userResult.message,
+                ErrorContent(
+                    message = uiState.usersResult.message,
+                    resource = Res.drawable.ic_search,
+                    retryButtonText = stringResource(Res.string.global_error_retry),
                     onRetry = {
-
+                        onEvent(UserContract.Event.OnRetry)
                     }
                 )
             }

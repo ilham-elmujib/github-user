@@ -1,4 +1,25 @@
 <resources>
     <string name="app_name">Github Users</string>
-    <string name="user_screen_top_bar_title">Search users...</string>
+
+    <string name="global_loading_message">Loading...</string>
+    <string name="global_error_message">Something went wrong.</string>
+    <string name="global_error_retry">Retry</string>
+
+    <string name="user_search_placeholder">Search users...</string>
+    <string name="user_empty_message">No users found.</string>
+
+    <string name="repo_top_bar_title">Repositories</string>
+    <string name="repo_empty_message">No repositories found.</string>
+    <string name="repo_score_title">Repos</string>
+    <string name="repo_followers_title">Followers</string>
+    <string name="repo_following_title">Following</string>
+    <string name="repo_language_empty">Language not defined</string>
+    <string name="repo_description_empty">No description</string>
+    <string name="repo_location_empty">Location unknown</string>
+    <string name="repo_button_see_all">See All</string>
+    <string name="repo_button_view_blog">View Blog</string>
+    <string name="repo_blog_dialog_not_found_title">Blog not found</string>
+    <string name="repo_blog_dialog_not_found_message">The user doesn\'t have a blog</string>
+    <string name="repo_blog_dialog_not_found_button_ok">Got it</string>
+
 </resources>

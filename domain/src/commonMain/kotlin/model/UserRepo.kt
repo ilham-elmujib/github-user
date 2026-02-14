@@ -1,7 +1,6 @@
 package model
 
 data class UserRepo(
-    val id: Long,
-    val name: String,
-    val fullName: String,
+    val user: User,
+    val repos: List<Repo>
 )

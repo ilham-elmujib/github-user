@@ -12,47 +12,59 @@ class UserViewModel(
 ) : BaseViewModel<UserContract.Event, UserContract.State, UserContract.Effect>() {
 
     init {
-        getAll()
+        getUsers()
     }
 
     override fun createInitialState(): UserContract.State {
         return UserContract.State(
-            userResult = UiResult.Idle,
-            allUsers = emptyList()
+            usersResult = UiResult.Idle,
+            allUsers = emptyList(),
+            searchQuery = "",
+            searchBarExpanded = false
         )
     }
 
     override fun handleEvent(event: UserContract.Event) {
         when (event) {
-            is UserContract.Event.OnSearchUser -> {
-                val users = uiState.value.allUsers.filter {
-                    it.name.contains(event.searchText, ignoreCase = true)
-                }
-                setState { copy(userResult = UiResult.Success(users)) }
+            is UserContract.Event.OnSearchBarExpand -> {
+                setState { copy(searchBarExpanded = event.expanded) }
             }
 
-            UserContract.Event.OnNavigateToRepo -> {
-                setEffect { UserContract.Effect.NavigateToRepo }
+            is UserContract.Event.OnSearchQueryChange -> {
+                val users = uiState.value.allUsers.filter {
+                    it.login.contains(event.searchQuery, ignoreCase = true)
+                }
+                setState { copy(searchQuery = event.searchQuery, usersResult = UiResult.Success(users)) }
             }
+
+            UserContract.Event.OnRetry -> {
+                getUsers()
+            }
+
+            is UserContract.Event.OnNavigateToRepo -> {
+                setEffect { UserContract.Effect.NavigateToRepo(event.login) }
+            }
+
         }
     }
 
-    private fun getAll() {
+    private fun getUsers() {
         viewModelScope.launch {
-            setState { copy(userResult = UiResult.Loading) }
-            getUsersUseCase(Unit)
+            setState { copy(usersResult = UiResult.Loading) }
+            getUsersUseCase
+                .invoke(Unit)
                 .distinctUntilChanged()
                 .collect { result ->
                     result.onSuccess {
                         setState {
                             copy(
-                                userResult = UiResult.Success(it),
+                                usersResult = UiResult.Success(it),
                                 allUsers = it
                             )
                         }
                     }
                     result.onFailure {
-                        setState { copy(userResult = UiResult.Error(it.message.orEmpty())) }
+                        setState { copy(usersResult = UiResult.Error(it.message.orEmpty())) }
                     }
                 }
         }

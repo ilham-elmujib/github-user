@@ -6,10 +6,10 @@ import org.koin.dsl.bind
 import org.koin.dsl.module
 import source.user.UserRemoteDataSource
 import source.user.UserRemoteDataSourceImpl
-import source.user_repo.UserRepoRemoteDataSource
-import source.user_repo.UserRepoRemoteDataSourceImpl
+import source.repo.RepoRemoteDataSource
+import source.repo.RepoRemoteDataSourceImpl
 
 val remoteSourceModule : Module = module {
     singleOf(::UserRemoteDataSourceImpl) bind UserRemoteDataSource::class
-    singleOf(::UserRepoRemoteDataSourceImpl) bind UserRepoRemoteDataSource::class
+    singleOf(::RepoRemoteDataSourceImpl) bind RepoRemoteDataSource::class
 }

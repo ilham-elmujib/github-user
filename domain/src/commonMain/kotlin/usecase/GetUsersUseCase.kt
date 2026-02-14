@@ -7,11 +7,11 @@ import kotlinx.coroutines.flow.Flow
 import repository.user.UserRepository
 
 class GetUsersUseCase(
-    private val repository: UserRepository,
-    dispatcher: CoroutineDispatcher
+    dispatcher: CoroutineDispatcher,
+    private val userRepository: UserRepository
 ) : BaseUseCaseFlow<Unit, List<User>>(dispatcher) {
 
     override suspend fun build(request: Unit): Flow<List<User>> {
-        return repository.getAndSaveAll()
+        return userRepository.getAll()
     }
 }

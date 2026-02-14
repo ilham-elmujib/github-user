@@ -8,17 +8,21 @@ import model.UiState
 
 sealed class UserContract {
     sealed class Event : UiEvent {
-        class OnSearchUser(val searchText: String) : Event()
-        object OnNavigateToRepo : Event()
+        class OnSearchBarExpand(val expanded: Boolean) : Event()
+        class OnSearchQueryChange(val searchQuery: String) : Event()
+        object OnRetry : Event()
+        class OnNavigateToRepo(val login: String) : Event()
     }
 
     data class State(
-        val userResult: UiResult<List<User>>,
+        val searchQuery: String,
+        val searchBarExpanded: Boolean,
+        val usersResult: UiResult<List<User>>,
         val allUsers: List<User>
     ) : UiState
 
     sealed class Effect : UiEffect {
-        object NavigateToRepo : Effect()
+        class NavigateToRepo(val login: String) : Effect()
         class ShowSnackBar(val message: String) : Effect()
     }
 }

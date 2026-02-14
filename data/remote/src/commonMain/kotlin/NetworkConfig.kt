@@ -29,7 +29,13 @@ object NetworkConfig {
             socketTimeoutMillis = timeout
         }
         install(ContentNegotiation) {
-            json(jsonConfig)
+            json(Json {
+                prettyPrint = true
+                ignoreUnknownKeys = true
+                useAlternativeNames = false
+                isLenient = true
+                explicitNulls = true
+            })
         }
         install(DefaultRequest) {
             header(HttpHeaders.ContentType, ContentType.Application.Json)
@@ -39,7 +45,7 @@ object NetworkConfig {
     fun createKtorfit(client: HttpClient): Ktorfit {
         return Ktorfit.Builder()
             .httpClient(client)
-            .baseUrl(Endpoints.BASE_URL)
+            .baseUrl(ApiUrl.BASE_URL)
             .converterFactories(ApiResponseConverterFactory.create())
             .build()
     }

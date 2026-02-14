@@ -23,5 +23,19 @@ data class UserEntity(
     val receivedEventsUrl: String?,
     val type: String?,
     val userViewType: String?,
-    val siteAdmin: Boolean?
+    val siteAdmin: Boolean?,
+    val name: String?,
+    val company: String?,
+    val blog: String?,
+    val location: String?,
+    val email: String?,
+    val hireable: Boolean?,
+    val bio: String?,
+    val twitterUsername: String?,
+    val publicRepos: Int?,
+    val publicGists: Int?,
+    val followers: Int?,
+    val following: Int?,
+    val createdAt: String?,
+    val updatedAt: String?
 )

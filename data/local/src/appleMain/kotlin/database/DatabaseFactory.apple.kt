@@ -18,7 +18,8 @@ actual class DatabaseFactory {
             error = null,
         )
 
-        val dbFilePath = requireNotNull(documentDirectory?.path) + "/my_room.db"
+        val dbFilePath = requireNotNull(documentDirectory?.path) + "/${DATABASE_NAME}"
+        println("Location: $dbFilePath")
         return Room.databaseBuilder<AppDatabase>(
             name = dbFilePath,
         ).build()

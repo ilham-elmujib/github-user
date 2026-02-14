@@ -2,14 +2,14 @@ package feature.user.screen
 
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.navigation.NavController
 import base.BaseScreen
 import feature.user.viewmodel.UserContract
 import feature.user.viewmodel.UserViewModel
-import navigation.RepoNavigation
 import org.koin.compose.viewmodel.koinViewModel
 
-class UserScreen: BaseScreen<UserViewModel, UserContract.Event, UserContract.State, UserContract.Effect>() {
+class UserScreen(
+    private val navigateToRepo: (login: String) -> Unit
+): BaseScreen<UserViewModel, UserContract.Event, UserContract.State, UserContract.Effect>() {
 
     @Composable
     override fun viewModel(): UserViewModel = koinViewModel<UserViewModel>()
@@ -43,12 +43,11 @@ class UserScreen: BaseScreen<UserViewModel, UserContract.Event, UserContract.Sta
     override suspend fun handleEffect(
         uiState: UserContract.State,
         uiEffect: UserContract.Effect,
-        navController: NavController,
         snackBarHostState: SnackbarHostState
     ) {
         when (uiEffect) {
-            UserContract.Effect.NavigateToRepo -> {
-                navController.navigate(RepoNavigation.destination)
+            is UserContract.Effect.NavigateToRepo -> {
+                navigateToRepo(uiEffect.login)
             }
 
             is UserContract.Effect.ShowSnackBar -> {

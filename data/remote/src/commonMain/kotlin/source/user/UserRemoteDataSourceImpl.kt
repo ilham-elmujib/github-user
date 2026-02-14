@@ -11,5 +11,9 @@ class UserRemoteDataSourceImpl(
         return api.getAll()
     }
 
+    override suspend fun getDetail(login: String): UserResponse? {
+        return api.getDetail(login)
+    }
+
 }
 

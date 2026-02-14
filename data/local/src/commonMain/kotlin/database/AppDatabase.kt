@@ -4,18 +4,18 @@ import androidx.room.ConstructedBy
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.RoomDatabaseConstructor
-import dao.UserRepoDao
+import dao.RepoDao
 import dao.UserDao
-import entity.UserRepoEntity
+import entity.RepoEntity
 import entity.UserEntity
 
 const val DATABASE_NAME = "githubuser.db"
 
-@Database(entities = [UserEntity::class, UserRepoEntity::class], version = 1)
+@Database(entities = [UserEntity::class, RepoEntity::class], version = 1)
 @ConstructedBy(AppDatabaseConstructor::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
-    abstract fun userRepoDao(): UserRepoDao
+    abstract fun repoDao(): RepoDao
 }
 
 // The Room compiler generates the `actual` implementations.

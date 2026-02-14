@@ -3,6 +3,9 @@ package navigation
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import feature.repo.navigation.repoGraph
+import feature.user.navigation.UserRoute
+import feature.user.navigation.userGraph
 
 @Composable
 fun AppNavigation() {
@@ -10,9 +13,9 @@ fun AppNavigation() {
 
     NavHost(
         navController = navController,
-        startDestination = UserNavigation.destination
+        startDestination = UserRoute
     ) {
-        usersGraph(navController)
-//        reposGraph(navController)
+        userGraph(navController)
+        repoGraph(navController)
     }
 }
