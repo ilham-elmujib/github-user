@@ -58,6 +58,7 @@ kotlin {
             implementation(project(":data:remote"))
             implementation(libs.koin.core)
             implementation(libs.koin.annotations)
+            implementation(libs.kotlinx.coroutines.core)
         }
     }
 

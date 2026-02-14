@@ -14,7 +14,7 @@ actual class DataStoreFactory(
         val dataStore: DataStore<Preferences> = PreferenceDataStoreFactory.createWithPath(
             produceFile = { context.filesDir.resolve(SharedPreferencesKey.FILE_NAME).absolutePath.toPath() }
         )
-        return SharedPreferencesImp(dataStore)
+        return SharedPreferencesImpl(dataStore)
 
     }
 }

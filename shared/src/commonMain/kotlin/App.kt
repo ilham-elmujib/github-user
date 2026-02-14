@@ -27,7 +27,7 @@ fun App() {
                 .fillMaxSize(),
         ) {
             Text(
-                platform,
+                "Test",
                 style = TextStyle(fontSize = 20.sp),
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth().align(Alignment.CenterHorizontally)

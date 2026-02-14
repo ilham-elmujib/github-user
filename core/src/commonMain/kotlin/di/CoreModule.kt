@@ -5,11 +5,11 @@ import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import preferences.SharedPreferences
-import preferences.SharedPreferencesImp
+import preferences.SharedPreferencesImpl
 
 expect val dataStoreModule: Module
 
 val coreModule : Module = module {
     includes(dataStoreModule)
-    singleOf(::SharedPreferencesImp) bind SharedPreferences::class
+    singleOf(::SharedPreferencesImpl) bind SharedPreferences::class
 }

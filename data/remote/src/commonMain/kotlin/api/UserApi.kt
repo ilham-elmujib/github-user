@@ -1,9 +1,9 @@
 package api
 
-import com.skydoves.sandwich.ApiResponse
 import de.jensklingenberg.ktorfit.http.GET
+import response.UserResponse
 
 interface UserApi {
-    @GET("v1/customer/")
-    suspend fun get(): ApiResponse<String>
+    @GET(Endpoints.USER)
+    suspend fun getAll(): List<UserResponse>?
 }

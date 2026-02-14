@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -59,6 +58,7 @@ kotlin {
             implementation(project(":core"))
             implementation(libs.koin.core)
             implementation(libs.koin.annotations)
+            implementation(libs.kotlinx.serialization)
             implementation(libs.bundles.ktor.common)
             implementation(libs.ktorfit)
             implementation(libs.sandwich)

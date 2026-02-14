@@ -26,6 +26,6 @@ actual class DataStoreFactory {
                 (requireNotNull(documentDirectory).path + "/${SharedPreferencesKey.FILE_NAME}").toPath()
             }
         )
-        return SharedPreferencesImp(dataStore)
+        return SharedPreferencesImpl(dataStore)
     }
 }

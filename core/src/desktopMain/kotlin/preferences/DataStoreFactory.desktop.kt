@@ -17,6 +17,6 @@ actual class DataStoreFactory {
                 File(dsDir, SharedPreferencesKey.FILE_NAME).absolutePath.toPath()
             }
         )
-        return SharedPreferencesImp(dataStore)
+        return SharedPreferencesImpl(dataStore)
     }
 }

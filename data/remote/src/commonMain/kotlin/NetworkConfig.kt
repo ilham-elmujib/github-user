@@ -39,7 +39,7 @@ object NetworkConfig {
     fun createKtorfit(client: HttpClient): Ktorfit {
         return Ktorfit.Builder()
             .httpClient(client)
-            .baseUrl("BuildKonfig.BASE_URL")
+            .baseUrl(Endpoints.BASE_URL)
             .converterFactories(ApiResponseConverterFactory.create())
             .build()
     }
