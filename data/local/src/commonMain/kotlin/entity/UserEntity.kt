@@ -23,5 +23,5 @@ data class UserEntity(
     val receivedEventsUrl: String?,
     val type: String?,
     val userViewType: String?,
-    val siteAdmin: Boolean
+    val siteAdmin: Boolean?
 )

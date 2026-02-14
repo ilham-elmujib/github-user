@@ -1,7 +1,7 @@
 package co.id.ilhamelmujib.githubuser
 
 import android.app.Application
-import co.id.ilhamelmujib.githubuser.di.initKoin
+import di.initKoin
 import org.koin.dsl.module
 
 class MainApp : Application() {

@@ -1,18 +1,19 @@
-package component
+package component.template
 
 import androidx.compose.runtime.Composable
+import component.LocalIsLargeScreen
 
 @Composable
 fun ResponsiveContent(
-    compact: @Composable () -> Unit,
-    expand: @Composable () -> Unit
+    mobile: @Composable () -> Unit,
+    tablet: @Composable () -> Unit
 ) {
     val isLargeScreen = LocalIsLargeScreen.current
 
     if (isLargeScreen) {
-        expand()
+        tablet()
     } else {
-        compact()
+        mobile()
     }
 
 }

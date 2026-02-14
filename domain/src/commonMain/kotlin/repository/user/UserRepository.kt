@@ -1,6 +1,6 @@
-package co.id.ilhamelmujib.githubuser.repository.user
+package repository.user
 
-import co.id.ilhamelmujib.githubuser.model.User
+import model.User
 import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {

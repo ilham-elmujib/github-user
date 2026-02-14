@@ -54,6 +54,7 @@ kotlin {
         }
 
         commonMain.dependencies {
+            implementation(project(":core"))
             implementation(project(":data:local"))
             implementation(project(":data:remote"))
             implementation(libs.koin.core)

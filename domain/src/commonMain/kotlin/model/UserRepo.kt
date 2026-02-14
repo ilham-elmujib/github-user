@@ -1,4 +1,4 @@
-package co.id.ilhamelmujib.githubuser.model
+package model
 
 data class UserRepo(
     val id: Long,

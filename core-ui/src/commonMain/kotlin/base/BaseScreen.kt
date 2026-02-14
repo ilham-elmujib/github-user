@@ -7,7 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import component.ResponsiveContent
+import component.template.ResponsiveContent
 import kotlinx.coroutines.flow.collectLatest
 import model.UiEffect
 import model.UiEvent
@@ -44,15 +44,15 @@ abstract class BaseScreen<VM : BaseViewModel<Event, State, Effect>, Event : UiEv
         }
 
         ResponsiveContent(
-            expand = {
-                ExpandContent(
+            tablet = {
+                TabletContent(
                     onEvent = onEvent,
                     uiState = uiState,
                     snackBarHostState = snackBarHostState
                 )
             },
-            compact = {
-                CompactContent(
+            mobile = {
+                MobileContent(
                     onEvent = onEvent,
                     uiState = uiState,
                     snackBarHostState = snackBarHostState
@@ -67,14 +67,14 @@ abstract class BaseScreen<VM : BaseViewModel<Event, State, Effect>, Event : UiEv
     }
 
     @Composable
-    protected abstract fun CompactContent(
+    protected abstract fun MobileContent(
         onEvent: (Event) -> Unit,
         uiState: State,
         snackBarHostState: SnackbarHostState
     )
 
     @Composable
-    protected abstract fun ExpandContent(
+    protected abstract fun TabletContent(
         onEvent: (Event) -> Unit,
         uiState: State,
         snackBarHostState: SnackbarHostState

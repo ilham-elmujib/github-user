@@ -30,7 +30,8 @@ chucker = "4.3.0"
 sandwich = "2.2.1"
 ktor = "3.4.0"
 ktorfit = "2.7.2"
-serialization = "1.9.0"
+serialization = "1.10.0"
+imageLoader = "1.10.0"
 
 [libraries]
 androidx-datastore = { module = "androidx.datastore:datastore", version.ref = "datastore" }
@@ -87,6 +88,7 @@ ktor-client-web = { module = "io.ktor:ktor-client-js", version.ref = "ktor" }
 sandwich = { module = "com.github.skydoves:sandwich", version.ref = "sandwich" }
 sandwich-ktorfit = { module = "com.github.skydoves:sandwich-ktorfit", version.ref = "sandwich" }
 ktorfit = { module = "de.jensklingenberg.ktorfit:ktorfit-lib", version.ref = "ktorfit" }
+imageLoader = { module = "io.github.qdsfdhvh:image-loader", version.ref = "imageLoader" }
 
 [bundles]
 ktor-common = ["ktor-client-core", "ktor-client-logging", "ktor-client-auth", "ktor-client-serialization", "ktor-client-content-negotiation", "ktor-serialization-kotlinx-json"]
