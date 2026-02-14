@@ -4,8 +4,8 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import base.BaseScreen
-import co.id.ilhamelmujib.githubuser.feature.users.viewmodel.UserContract
-import co.id.ilhamelmujib.githubuser.feature.users.viewmodel.UserViewModel
+import feature.users.viewmodel.UserContract
+import feature.users.viewmodel.UserViewModel
 import navigation.RepoNavigation
 import org.koin.compose.viewmodel.koinViewModel
 

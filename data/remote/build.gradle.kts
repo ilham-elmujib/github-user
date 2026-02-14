@@ -84,9 +84,9 @@ kotlin {
             implementation(libs.ktor.client.desktop)
         }
 
-        webMain.dependencies {
-            implementation(libs.ktor.client.web)
-        }
+//        webMain.dependencies {
+//            implementation(libs.ktor.client.web)
+//        }
 
     }
 }

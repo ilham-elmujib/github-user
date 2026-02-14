@@ -1,4 +1,4 @@
-package co.id.ilhamelmujib.githubuser.feature.users.viewmodel
+package feature.users.viewmodel
 
 import model.User
 import model.UiEffect
@@ -8,11 +8,13 @@ import model.UiState
 
 sealed class UserContract {
     sealed class Event : UiEvent {
+        class OnSearchUser(val searchText: String) : Event()
         object OnNavigateToRepo : Event()
     }
 
     data class State(
-        val userResult: UiResult<List<User>>
+        val userResult: UiResult<List<User>>,
+        val allUsers: List<User>
     ) : UiState
 
     sealed class Effect : UiEffect {

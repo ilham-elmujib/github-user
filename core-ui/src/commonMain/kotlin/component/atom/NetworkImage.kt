@@ -37,6 +37,7 @@ fun NetworkImage(
 
     Box(
         modifier = modifier
+            .clip(shape)
             .background(
                 color = backgroundColor,
             ),
@@ -55,11 +56,17 @@ fun NetworkImage(
             }
 
             else -> {
+                val initials = displayName.split(" ")
+                    .mapNotNull { it.firstOrNull()?.toString() }
+                    .joinToString("")
+                    .take(2)
+                    .uppercase()
+
                 Text(
                     modifier = Modifier.fillMaxWidth(),
-                    text = displayName,
+                    text = initials,
                     textAlign = TextAlign.Center,
-                    style = textStyle,
+                    style = MaterialTheme.typography.titleLarge,
                     color = contentColor,
                 )
             }

@@ -9,7 +9,7 @@ import platform.Foundation.NSUserDomainMask
 
 actual class DatabaseFactory {
     @OptIn(ExperimentalForeignApi::class)
-    actual fun create(): RoomDatabase.Builder<AppDatabase> {
+    actual fun build(): AppDatabase {
         val documentDirectory = NSFileManager.defaultManager.URLForDirectory(
             directory = NSDocumentDirectory,
             inDomain = NSUserDomainMask,
@@ -21,6 +21,6 @@ actual class DatabaseFactory {
         val dbFilePath = requireNotNull(documentDirectory?.path) + "/my_room.db"
         return Room.databaseBuilder<AppDatabase>(
             name = dbFilePath,
-        )
+        ).build()
     }
 }

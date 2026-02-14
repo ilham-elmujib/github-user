@@ -1,14 +1,9 @@
 package feature.users.screen
 
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import feature.users.component.UserList
-import feature.users.component.UserTopBar
-import co.id.ilhamelmujib.githubuser.feature.users.viewmodel.UserContract
+import feature.users.viewmodel.UserContract
 
 @Composable
 fun UserTablet(
@@ -17,11 +12,13 @@ fun UserTablet(
     uiState: UserContract.State,
     snackBarHostState: SnackbarHostState,
 ) {
-    Scaffold(
-        modifier = modifier,
-        topBar = { UserTopBar() },
-        snackbarHost = { SnackbarHost(snackBarHostState) }
-    ) {
+//    val searchState = remember { TextFieldState() }
+//
+//    Scaffold(
+//        modifier = modifier,
+//        topBar = { UserTopBar(searchState) },
+//        snackbarHost = { SnackbarHost(snackBarHostState) }
+//    ) {
 //        UserList(
 //            modifier = Modifier.padding(it),
 //            users = uiState.users,
@@ -29,5 +26,5 @@ fun UserTablet(
 //                onEvent(UserContract.Event.OnNavigateToRepo)
 //            }
 //        )
-    }
+//    }
 }

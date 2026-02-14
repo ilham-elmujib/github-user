@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -37,18 +39,20 @@ fun UserItem(
                 .padding(10.dp)
         ) {
             NetworkImage(
+                modifier = Modifier.size(45.dp),
+                shape = CircleShape,
                 imageUrl = user.avatarUrl,
                 displayName = user.name,
             )
-            Column {
+            Column(
+                modifier = Modifier.padding(8.dp)
+            ) {
                 Text(
                     text = user.name,
                     style = MaterialTheme.typography.bodyLarge,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.fillMaxWidth()
                 )
-
-                Spacer(modifier = Modifier.height(12.dp))
                 Text(
                     text = user.avatarUrl,
                     style = MaterialTheme.typography.bodyMedium,
