@@ -1,4 +1,4 @@
-package feature.users.screen
+package feature.user.screen
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -7,8 +7,8 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import co.id.ilhamelmujib.githubuser.feature.users.component.UserContent
-import feature.users.component.UserSearchBar
-import feature.users.viewmodel.UserContract
+import feature.user.component.UserSearchBar
+import feature.user.viewmodel.UserContract
 
 @Composable
 fun UserMobile(

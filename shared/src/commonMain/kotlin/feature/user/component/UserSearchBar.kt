@@ -1,4 +1,4 @@
-package feature.users.component
+package feature.user.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -19,7 +19,7 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import co.id.ilhamelmujib.githubuser.feature.users.component.UserContent
-import feature.users.viewmodel.UserContract
+import feature.user.viewmodel.UserContract
 import github_user.shared.generated.resources.Res
 import github_user.shared.generated.resources.ic_close
 import github_user.shared.generated.resources.ic_search

@@ -1,4 +1,4 @@
-package feature.users.viewmodel
+package feature.user.viewmodel
 
 import model.User
 import model.UiEffect

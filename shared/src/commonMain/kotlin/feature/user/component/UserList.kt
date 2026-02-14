@@ -1,4 +1,4 @@
-package feature.users.component
+package feature.user.component
 
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed

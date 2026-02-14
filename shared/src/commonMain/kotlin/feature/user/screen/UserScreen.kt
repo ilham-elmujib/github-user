@@ -1,11 +1,11 @@
-package feature.users.screen
+package feature.user.screen
 
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import base.BaseScreen
-import feature.users.viewmodel.UserContract
-import feature.users.viewmodel.UserViewModel
+import feature.user.viewmodel.UserContract
+import feature.user.viewmodel.UserViewModel
 import navigation.RepoNavigation
 import org.koin.compose.viewmodel.koinViewModel
 

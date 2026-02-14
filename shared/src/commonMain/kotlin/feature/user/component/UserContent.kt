@@ -4,11 +4,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import feature.users.viewmodel.UserContract
-import feature.users.component.UserEmpty
-import feature.users.component.UserError
-import feature.users.component.UserList
-import feature.users.component.UserLoading
+import feature.user.viewmodel.UserContract
+import feature.user.component.UserEmpty
+import feature.user.component.UserError
+import feature.user.component.UserList
+import feature.user.component.UserLoading
 import model.UiResult
 
 @Composable

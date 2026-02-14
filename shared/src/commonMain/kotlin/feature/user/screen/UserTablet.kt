@@ -1,9 +1,9 @@
-package feature.users.screen
+package feature.user.screen
 
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import feature.users.viewmodel.UserContract
+import feature.user.viewmodel.UserContract
 
 @Composable
 fun UserTablet(

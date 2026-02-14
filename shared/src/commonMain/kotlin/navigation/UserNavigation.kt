@@ -4,7 +4,7 @@ import BaseNavigation
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import feature.users.screen.UserScreen
+import feature.user.screen.UserScreen
 
 object UserNavigation : BaseNavigation() {
     override val route = "users"
