@@ -23,41 +23,36 @@ fun UserItem(
     user: User,
     onItemClick: (User) -> Unit
 ) {
-    Column(
+    Row(
         modifier = modifier
             .fillMaxWidth()
             .clickable {
                 onItemClick(user)
             }
+            .padding(10.dp)
+
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(10.dp)
+        NetworkImage(
+            modifier = Modifier.size(45.dp),
+            shape = CircleShape,
+            imageUrl = user.avatarUrl,
+            displayName = user.login,
+        )
+        Column(
+            modifier = Modifier.padding(8.dp)
         ) {
-            NetworkImage(
-                modifier = Modifier.size(45.dp),
-                shape = CircleShape,
-                imageUrl = user.avatarUrl,
-                displayName = user.login,
+            Text(
+                text = user.login,
+                style = MaterialTheme.typography.bodyLarge,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.fillMaxWidth()
             )
-            Column(
-                modifier = Modifier.padding(8.dp)
-            ) {
-                Text(
-                    text = user.login,
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.fillMaxWidth()
-                )
-                Text(
-                    text = user.htmlUrl,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
+            Text(
+                text = user.htmlUrl,
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f),
+                modifier = Modifier.fillMaxWidth()
+            )
         }
     }
 }

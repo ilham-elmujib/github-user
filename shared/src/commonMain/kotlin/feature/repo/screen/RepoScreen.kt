@@ -5,10 +5,13 @@ import androidx.compose.runtime.Composable
 import base.BaseScreen
 import feature.repo.viewmodel.RepoContract
 import feature.repo.viewmodel.RepoViewModel
+import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
+import utils.UrlHandler
 
 class RepoScreen(
-    private val navigateToBack: () -> Unit
+    private val navigateToBack: () -> Unit,
+    private val navigateToBrowser:(String) -> Unit,
 ): BaseScreen<RepoViewModel, RepoContract.Event, RepoContract.State, RepoContract.Effect>() {
 
     @Composable
@@ -49,13 +52,9 @@ class RepoScreen(
             RepoContract.Effect.NavigateToBack -> {
                 navigateToBack()
             }
-
-            is RepoContract.Effect.ShowSnackBar -> {
-                snackBarHostState.showSnackbar(
-                    message = uiEffect.message
-                )
+            is RepoContract.Effect.NavigateToBrowser -> {
+                navigateToBrowser(uiEffect.url)
             }
-
         }
     }
 }

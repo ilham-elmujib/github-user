@@ -9,5 +9,6 @@ import preferences.SharedPreferencesImpl
 
 val coreModule : Module = module {
     includes(dataStoreModule)
+    includes(utilsModule)
     singleOf(::SharedPreferencesImpl) bind SharedPreferences::class
 }

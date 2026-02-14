@@ -1,166 +1,141 @@
 package co.id.ilhamelmujib.githubuser.feature.repo.component
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import component.atom.NetworkImage
-import github_user.shared.generated.resources.Res
-import github_user.shared.generated.resources.repo_blog_dialog_not_found_button_ok
-import github_user.shared.generated.resources.repo_blog_dialog_not_found_message
-import github_user.shared.generated.resources.repo_blog_dialog_not_found_title
-import github_user.shared.generated.resources.repo_button_see_all
-import github_user.shared.generated.resources.repo_button_view_blog
-import github_user.shared.generated.resources.repo_followers_title
-import github_user.shared.generated.resources.repo_following_title
-import github_user.shared.generated.resources.repo_location_empty
-import github_user.shared.generated.resources.repo_score_title
+import github_user.shared.generated.resources.*
 import model.User
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun RepoListHeader(user: User) {
-
-    Column {
+fun RepoListHeader(
+    modifier: Modifier = Modifier,
+    user: User,
+    onSeeAllClick: (String) -> Unit,
+    onViewBlogClick: (String) -> Unit
+) {
+    Column(modifier = modifier.fillMaxWidth()) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
                 .padding(16.dp)
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             ScoreSession(user)
-
-            Spacer(modifier = Modifier.height(16.dp))
-
             UserDetailSession(user)
-
-            Spacer(modifier = Modifier.height(16.dp))
-
             ButtonsSession(
                 user = user,
-                openUrl = {
-
-                }
+                onSeeAllClick = onSeeAllClick,
+                onViewBlogClick = onViewBlogClick
             )
         }
-
-        HorizontalDivider(
-            thickness = 0.5.dp,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-        )
+        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
     }
 }
 
 @Composable
-fun ScoreSession(user: User) {
+private fun ScoreSession(user: User) {
     Row(
         modifier = Modifier.fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceAround
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         NetworkImage(
-            modifier = Modifier.size(100.dp),
+            modifier = Modifier.size(80.dp),
             imageUrl = user.avatarUrl,
             displayName = user.name
         )
 
-        ScoreItem(
-            count = user.publicRepos,
-            description = stringResource(Res.string.repo_score_title)
+        Row(
+            horizontalArrangement = Arrangement.spacedBy(24.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            ScoreItem(user.publicRepos, stringResource(Res.string.repo_score_title))
+            ScoreItem(user.followers, stringResource(Res.string.repo_followers_title))
+            ScoreItem(user.following, stringResource(Res.string.repo_following_title))
+        }
+    }
+}
+
+@Composable
+private fun UserDetailSession(user: User) {
+    Column {
+        Text(
+            text = user.name,
+            style = MaterialTheme.typography.titleLarge,
+            fontWeight = FontWeight.Bold
         )
-        ScoreItem(
-            count = user.followers,
-            description = stringResource(Res.string.repo_followers_title)
-        )
-        ScoreItem(
-            count = user.following,
-            description = stringResource(Res.string.repo_following_title)
+        Text(
+            text = user.location.ifBlank { stringResource(Res.string.repo_location_empty) },
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
 }
 
 @Composable
-fun UserDetailSession(user: User) {
-    Text(
-        text = user.name,
-        style = MaterialTheme.typography.bodyLarge,
-        fontWeight = FontWeight.Bold
-    )
-    Text(
-        text = user.location.ifEmpty { stringResource(Res.string.repo_location_empty) },
-        style = MaterialTheme.typography.bodyMedium,
-        color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-    )
-}
-
-@Composable
-fun ButtonsSession(
+private fun ButtonsSession(
     user: User,
-    openUrl: (String) -> Unit
+    onSeeAllClick: (String) -> Unit,
+    onViewBlogClick: (String) -> Unit
 ) {
+    var showDialog by remember { mutableStateOf(false) }
 
-    val blogNotFoundDialog = remember { mutableStateOf(false) }
-
-    Row(modifier = Modifier.fillMaxWidth()) {
-        Button(onClick = {
-        }) {
-            Text(text = stringResource(Res.string.repo_button_see_all))
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        Button(
+            onClick = {
+                onSeeAllClick.invoke(user.htmlUrl)
+            },
+            modifier = Modifier.weight(1f)
+        ) {
+            Text(stringResource(Res.string.repo_button_see_all))
         }
 
-        Spacer(modifier = Modifier.width(12.dp))
-
-        OutlinedButton(onClick = {
-            if (user.blog.isEmpty()) {
-                blogNotFoundDialog.value = true
-            } else {
-                openUrl(user.blog)
-            }
-        }) {
-            Text(text = stringResource(Res.string.repo_button_view_blog))
+        OutlinedButton(
+            onClick = {
+                if (user.blog.isBlank()) showDialog = true
+                else onViewBlogClick(user.blog)
+            },
+            modifier = Modifier.weight(1f)
+        ) {
+            Text(stringResource(Res.string.repo_button_view_blog))
         }
     }
 
-    if (blogNotFoundDialog.value) {
+    if (showDialog) {
         AlertDialog(
-            onDismissRequest = {
-                blogNotFoundDialog.value = false
-            },
-            title = {
-                Text(text = stringResource(Res.string.repo_blog_dialog_not_found_title))
-            },
-            text = {
-                Text(text = stringResource(Res.string.repo_blog_dialog_not_found_message))
-            },
+            onDismissRequest = { showDialog = false },
+            title = { Text(stringResource(Res.string.repo_blog_dialog_not_found_title)) },
+            text = { Text(stringResource(Res.string.repo_blog_dialog_not_found_message)) },
             confirmButton = {
-                Text(
-                    text = stringResource(Res.string.repo_blog_dialog_not_found_button_ok)
-                )
+                TextButton(onClick = { showDialog = false }) {
+                    Text(stringResource(Res.string.repo_blog_dialog_not_found_button_ok))
+                }
             }
         )
     }
 }
 
 @Composable
-fun ScoreItem(count: Int, description: String) {
+private fun ScoreItem(count: Int, description: String) {
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
             text = count.toString(),
-            style = MaterialTheme.typography.bodyLarge,
+            style = MaterialTheme.typography.titleMedium,
             fontWeight = FontWeight.Bold
         )
         Text(
             text = description,
-            style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
 }

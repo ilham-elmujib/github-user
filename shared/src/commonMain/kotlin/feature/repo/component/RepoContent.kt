@@ -39,8 +39,22 @@ fun RepoContent(
                     )
                 } else {
                     RepoList(
-                        header = { RepoListHeader(user = data.user) },
-                        repos = data.repos
+                        header = {
+                            RepoListHeader(
+                                user = data.user,
+                                onSeeAllClick = {
+                                    onEvent(RepoContract.Event.OnNavigateToBrowser(it))
+                                },
+                                onViewBlogClick = {
+                                    onEvent(RepoContract.Event.OnNavigateToBrowser(it))
+
+                                }
+                            )
+                        },
+                        repos = data.repos,
+                        onItemClick = {
+                            onEvent(RepoContract.Event.OnNavigateToBrowser(it))
+                        }
                     )
                 }
             }

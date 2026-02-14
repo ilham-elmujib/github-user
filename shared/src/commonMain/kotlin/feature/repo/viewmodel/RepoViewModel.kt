@@ -9,9 +9,11 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import model.UiResult
 import usecase.GetUserRepoUseCase
+import utils.UrlHandler
 
 class RepoViewModel(
     savedStateHandle: SavedStateHandle,
+    private val urlHandler: UrlHandler,
     private val getUserRepoUseCase: GetUserRepoUseCase
 ) : BaseViewModel<RepoContract.Event, RepoContract.State, RepoContract.Effect>() {
 
@@ -25,24 +27,11 @@ class RepoViewModel(
         return RepoContract.State(
             login = "",
             reposResult = UiResult.Idle,
-            allRepos = emptyList(),
-            searchQuery = "",
-            searchBarExpanded = false
         )
     }
 
     override fun handleEvent(event: RepoContract.Event) {
         when (event) {
-            is RepoContract.Event.OnSearchBarExpand -> {
-                setState { copy(searchBarExpanded = event.expanded) }
-            }
-
-            is RepoContract.Event.OnSearchQueryChange -> {
-                val repos = uiState.value.allRepos.filter {
-                    it.fullName.contains(event.searchQuery, ignoreCase = true)
-                }
-            }
-
             RepoContract.Event.OnRetry -> {
                 getUserRepo(currentState.login)
             }
@@ -51,6 +40,11 @@ class RepoViewModel(
                 setEffect { RepoContract.Effect.NavigateToBack }
             }
 
+            is RepoContract.Event.OnNavigateToBrowser -> {
+                setEffect {
+                    RepoContract.Effect.NavigateToBrowser(event.url)
+                }
+            }
         }
     }
 
@@ -65,7 +59,6 @@ class RepoViewModel(
                         setState {
                             copy(
                                 reposResult = UiResult.Success(it),
-                                allRepos = it.repos
                             )
                         }
                     }

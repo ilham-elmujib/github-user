@@ -4,11 +4,9 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.HorizontalDivider
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -29,79 +27,69 @@ import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun RepoItem(repo: Repo, onItemClick: (String) -> Unit) {
+fun RepoItem(
+    modifier: Modifier = Modifier,
+    repo: Repo,
+    onItemClick: (String) -> Unit
+) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .clickable {
-                onItemClick(repo.htmlUrl)
-            }
+            .clickable { onItemClick(repo.htmlUrl) }
+            .padding(16.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-        ) {
-            Column {
-                Text(
-                    text = repo.name,
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.fillMaxWidth()
-                )
+        Text(
+            text = repo.name,
+            style = MaterialTheme.typography.titleMedium,
+            fontWeight = FontWeight.Bold
+        )
 
-                Spacer(modifier = Modifier.height(12.dp))
+        Text(
+            text = repo.description.ifBlank { stringResource(Res.string.repo_description_empty) },
+            style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
 
-                Text(
-                    text = repo.description.ifEmpty { stringResource(Res.string.repo_description_empty) },
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f),
-                    modifier = Modifier.fillMaxWidth()
-                )
+        Text(
+            text = repo.language.ifBlank { stringResource(Res.string.repo_language_empty) },
+            style = MaterialTheme.typography.labelLarge,
+            color = MaterialTheme.colorScheme.primary
+        )
 
-                Spacer(modifier = Modifier.height(12.dp))
-
-                Text(
-                    text = repo.language.ifEmpty { stringResource(Res.string.repo_language_empty) },
-                    style = MaterialTheme.typography.bodyMedium,
-                )
-
-                Spacer(modifier = Modifier.height(12.dp))
-
-                CounterSession(repo = repo)
-            }
-        }
-        HorizontalDivider()
+        RepoStatsRow(repo)
     }
 }
 
 @Composable
-fun CounterSession(repo: Repo) {
+private fun RepoStatsRow(repo: Repo) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Start
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = Modifier.padding(top = 4.dp)
     ) {
-        CounterItem(icon = Res.drawable.ic_visibility, counterText = repo.watchersCount.toString())
-        CounterItem(icon = Res.drawable.ic_star, counterText = repo.stargazersCount.toString())
-        CounterItem(icon = Res.drawable.ic_call_split, counterText = repo.forksCount.toString())
+        StatItem(Res.drawable.ic_visibility, repo.watchersCount.toString())
+        StatItem(Res.drawable.ic_star, repo.stargazersCount.toString())
+        StatItem(Res.drawable.ic_call_split, repo.forksCount.toString())
     }
 }
 
 @Composable
-fun CounterItem(
-    icon: DrawableResource,
-    counterText: String
-) {
-    Icon(
-        painter = painterResource(icon),
-        contentDescription = null,
-        tint = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.5f)
-    )
-    Spacer(modifier = Modifier.height(12.dp))
-    Text(
-        text = counterText,
-        style = MaterialTheme.typography.bodySmall,
-    )
-    Spacer(modifier = Modifier.height(12.dp))
+private fun StatItem(icon: DrawableResource, count: String) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
+        Icon(
+            painter = painterResource(icon),
+            contentDescription = null,
+            modifier = Modifier.size(16.dp),
+            tint = MaterialTheme.colorScheme.outline
+        )
+        Text(
+            text = count,
+            style = MaterialTheme.typography.labelMedium,
+            color = MaterialTheme.colorScheme.outline
+        )
+    }
 }
