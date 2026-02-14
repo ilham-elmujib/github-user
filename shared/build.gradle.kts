@@ -51,6 +51,7 @@ kotlin {
     @OptIn(ExperimentalKotlinGradlePluginApi::class)
     dependencies {
         implementation(project(":core"))
+        implementation(project(":core-ui"))
         implementation(project(":domain"))
         implementation(libs.compose.runtime)
         implementation(libs.compose.foundation)
@@ -58,10 +59,13 @@ kotlin {
         implementation(libs.compose.ui)
         implementation(libs.compose.components.resources)
         implementation(libs.compose.uiToolingPreview)
+        implementation(libs.navigation.compose)
         implementation(libs.androidx.lifecycle.viewmodelCompose)
         implementation(libs.androidx.lifecycle.runtimeCompose)
         implementation(libs.koin.core)
         implementation(libs.koin.annotations)
+        implementation(libs.koin.core.viewmodel)
+        implementation(libs.koin.compose.viewmodel)
         implementation(libs.kotlinx.datetime)
         testImplementation(libs.kotlin.test)
     }
