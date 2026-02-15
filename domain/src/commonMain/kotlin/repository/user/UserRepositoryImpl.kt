@@ -26,6 +26,15 @@ class UserRepositoryImpl(
             .also { emitAll(it) }
     }
 
+    override suspend fun getByName(query: String): Flow<List<User>> = flow {
+        remote.getByName(query)?.items?.toEntities()?.also { entities ->
+            local.saveAll(entities)
+        }
+        local.getByName(query)
+            .map { it.toDomains() }
+            .also { emitAll(it) }
+    }
+
     override suspend fun getDetail(login: String): Flow<User> = flow {
         remote.getDetail(login)?.toEntity()?.also { entity ->
             local.update(entity)

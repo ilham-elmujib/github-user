@@ -75,7 +75,7 @@ fun UserSearchBar(
         },
     ) {
         UserContent(
-            usersResult = uiState.usersResult,
+            usersResult = uiState.filteredUsersResult,
             onItemClick = {
                 onEvent(UserContract.Event.OnNavigateToRepo(it.login))
             },

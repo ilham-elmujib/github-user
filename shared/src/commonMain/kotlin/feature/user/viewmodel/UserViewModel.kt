@@ -2,14 +2,17 @@ package feature.user.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import base.BaseViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import model.UiResult
 import usecase.GetUserRepoUseCase
+import usecase.GetUsersByNameUseCase
 import usecase.GetUsersUseCase
 
 class UserViewModel(
     private val getUsersUseCase: GetUsersUseCase,
+    private val getUsersByNameUseCase: GetUsersByNameUseCase,
     private val getUserRepoUseCase: GetUserRepoUseCase
 ) : BaseViewModel<UserContract.Event, UserContract.State, UserContract.Effect>() {
 
@@ -23,6 +26,7 @@ class UserViewModel(
             searchBarExpanded = false,
             usersResult = UiResult.Idle,
             allUsers = emptyList(),
+            filteredUsersResult = UiResult.Idle,
             reposResult = UiResult.Idle,
         )
     }
@@ -34,15 +38,8 @@ class UserViewModel(
             }
 
             is UserContract.Event.OnSearchQueryChange -> {
-                val users = uiState.value.allUsers.filter {
-                    it.login.contains(event.searchQuery, ignoreCase = true)
-                }
-                setState {
-                    copy(
-                        searchQuery = event.searchQuery,
-                        usersResult = UiResult.Success(users)
-                    )
-                }
+                setState { copy(searchQuery = event.searchQuery) }
+                getUsersByName(event.searchQuery)
             }
 
             UserContract.Event.OnRetryGetUsers -> {
@@ -96,6 +93,28 @@ class UserViewModel(
                     }
                     result.onFailure {
                         setState { copy(usersResult = UiResult.Error(it.message.orEmpty())) }
+                    }
+                }
+        }
+    }
+
+    private fun getUsersByName(searchQuery: String) {
+        viewModelScope.launch {
+            delay(1_000)
+            setState { copy(filteredUsersResult = UiResult.Loading) }
+            getUsersByNameUseCase
+                .invoke(searchQuery)
+                .distinctUntilChanged()
+                .collect { result ->
+                    result.onSuccess {
+                        setState {
+                            copy(
+                                filteredUsersResult = UiResult.Success(it),
+                            )
+                        }
+                    }
+                    result.onFailure {
+                        setState { copy(filteredUsersResult = UiResult.Error(it.message.orEmpty())) }
                     }
                 }
         }

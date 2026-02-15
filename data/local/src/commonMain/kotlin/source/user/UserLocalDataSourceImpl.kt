@@ -19,6 +19,11 @@ class UserLocalDataSourceImpl(
         return dao.getAll()
     }
 
+    override fun getByName(query: String): Flow<List<UserEntity>> {
+        return dao.getByName(query)
+    }
+
+
     override suspend fun getDetail(login: String): Flow<UserEntity> {
         return dao.getDetail(login)
     }

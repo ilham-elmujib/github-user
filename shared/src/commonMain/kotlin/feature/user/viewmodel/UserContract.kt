@@ -22,6 +22,7 @@ sealed class UserContract {
         val searchQuery: String,
         val searchBarExpanded: Boolean,
         val usersResult: UiResult<List<User>>,
+        val filteredUsersResult: UiResult<List<User>>,
         val allUsers: List<User>,
         val reposResult: UiResult<UserRepo>,
     ) : UiState

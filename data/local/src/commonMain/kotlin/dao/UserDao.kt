@@ -18,6 +18,10 @@ interface UserDao {
     @Query("SELECT * FROM users")
     fun getAll(): Flow<List<UserEntity>>
 
+    @Query("SELECT * FROM users WHERE login LIKE '%' || :query || '%'")
+    fun getByName(query: String): Flow<List<UserEntity>>
+
+
     @Query("SELECT * FROM users WHERE login = :login")
     fun getDetail(login: String): Flow<UserEntity>
 
