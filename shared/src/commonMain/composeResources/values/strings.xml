@@ -7,6 +7,7 @@
 
     <string name="user_search_placeholder">Search users...</string>
     <string name="user_empty_message">No users found.</string>
+    <string name="user_select_message">Please select user first</string>
 
     <string name="repo_top_bar_title">Repositories</string>
     <string name="repo_empty_message">No repositories found.</string>

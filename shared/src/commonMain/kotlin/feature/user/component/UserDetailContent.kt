@@ -2,7 +2,9 @@ package feature.user.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import feature.repo.component.RepoList
 import feature.repo.component.RepoListHeader
@@ -15,6 +17,7 @@ import github_user.shared.generated.resources.global_error_retry
 import github_user.shared.generated.resources.global_loading_message
 import github_user.shared.generated.resources.ic_search
 import github_user.shared.generated.resources.repo_empty_message
+import github_user.shared.generated.resources.user_select_message
 import model.UiResult
 import org.jetbrains.compose.resources.stringResource
 
@@ -23,8 +26,11 @@ fun UserDetailContent(
     modifier: Modifier = Modifier,
     uiState: UserContract.State,
     onEvent: (UserContract.Event) -> Unit
-){
-    Box(modifier = modifier.fillMaxSize()) {
+) {
+    Box(
+        modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
         when (uiState.reposResult) {
             UiResult.Loading -> {
                 LoadingContent(
@@ -72,7 +78,9 @@ fun UserDetailContent(
                 )
             }
 
-            UiResult.Idle -> Unit
+            UiResult.Idle -> Text(
+                text = stringResource(Res.string.user_select_message)
+            )
         }
     }
 }
