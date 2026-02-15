@@ -40,31 +40,24 @@ fun UserDetailContent(
 
             is UiResult.Success -> {
                 val data = uiState.reposResult.data
-                if (data.repos.isEmpty()) {
-                    EmptyContent(
-                        resource = Res.drawable.ic_search,
-                        message = stringResource(Res.string.repo_empty_message)
-                    )
-                } else {
-                    RepoList(
-                        header = {
-                            RepoListHeader(
-                                user = data.user,
-                                onSeeAllClick = {
-                                    onEvent(UserContract.Event.OnNavigateToBrowser(it))
-                                },
-                                onViewBlogClick = {
-                                    onEvent(UserContract.Event.OnNavigateToBrowser(it))
+                RepoList(
+                    header = {
+                        RepoListHeader(
+                            user = data.user,
+                            onSeeAllClick = {
+                                onEvent(UserContract.Event.OnNavigateToBrowser(it))
+                            },
+                            onViewBlogClick = {
+                                onEvent(UserContract.Event.OnNavigateToBrowser(it))
 
-                                }
-                            )
-                        },
-                        repos = data.repos,
-                        onItemClick = {
-                            onEvent(UserContract.Event.OnNavigateToBrowser(it))
-                        }
-                    )
-                }
+                            }
+                        )
+                    },
+                    repos = data.repos,
+                    onItemClick = {
+                        onEvent(UserContract.Event.OnNavigateToBrowser(it))
+                    }
+                )
             }
 
             is UiResult.Error -> {

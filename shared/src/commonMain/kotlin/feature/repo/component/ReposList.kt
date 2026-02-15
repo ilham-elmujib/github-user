@@ -9,7 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import co.id.ilhamelmujib.githubuser.feature.repo.component.RepoItem
+import component.molecule.EmptyContent
+import github_user.shared.generated.resources.Res
+import github_user.shared.generated.resources.ic_search
+import github_user.shared.generated.resources.repo_empty_message
 import model.Repo
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun RepoList(
@@ -21,15 +26,26 @@ fun RepoList(
     Column(modifier = modifier.fillMaxSize()) {
         LazyColumn {
             item { header() }
-            itemsIndexed(repos) { index, repo ->
-                RepoItem(
-                    repo = repo,
-                    onItemClick = onItemClick
-                )
-                if (index < repos.lastIndex) {
-                    HorizontalDivider(
-                        thickness = 0.5.dp,
+            if (repos.isEmpty()) {
+                item {
+                    EmptyContent(
+                        resource = Res.drawable.ic_search,
+                        message = stringResource(Res.string.repo_empty_message)
                     )
+                }
+            } else {
+                itemsIndexed(
+                    items = repos,
+                    key = { _, repo -> repo.id }
+                ) { index, repo ->
+                    RepoItem(
+                        repo = repo,
+                        onItemClick = onItemClick
+                    )
+
+                    if (index < repos.lastIndex) {
+                        HorizontalDivider(thickness = 0.5.dp)
+                    }
                 }
             }
         }

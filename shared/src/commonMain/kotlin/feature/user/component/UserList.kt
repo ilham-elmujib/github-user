@@ -20,7 +20,10 @@ fun UserList(
     LazyColumn(
         modifier = modifier
     ) {
-        itemsIndexed(users) { index, user ->
+        itemsIndexed(
+            items = users,
+            key = { _, user -> user.id }
+        ) { index, user ->
             UserItem(user = user, onItemClick = onItemClick)
             if (index < users.lastIndex) {
                 HorizontalDivider(
