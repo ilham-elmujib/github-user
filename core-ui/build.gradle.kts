@@ -59,7 +59,6 @@ kotlin {
         implementation(libs.androidx.lifecycle.viewmodelCompose)
         implementation(libs.androidx.lifecycle.runtimeCompose)
         implementation(libs.imageLoader)
-        testImplementation(libs.kotlin.test)
     }
 
     sourceSets {

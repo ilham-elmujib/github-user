@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidMultiplatformLibrary)
     alias(libs.plugins.koin.compiler)
+    alias(libs.plugins.mokkery)
 }
 
 kotlin {
@@ -60,7 +61,16 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.annotations)
             implementation(libs.kotlinx.coroutines.core)
+
         }
+
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
+            implementation("app.cash.turbine:turbine:1.2.1")
+        }
+
+
     }
 
 }

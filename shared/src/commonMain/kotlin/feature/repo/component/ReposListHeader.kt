@@ -71,7 +71,7 @@ private fun UserDetailSession(user: User) {
             fontWeight = FontWeight.Bold
         )
         Text(
-            text = user.location.ifBlank { stringResource(Res.string.repo_location_empty) },
+            text = user.bio.ifBlank { stringResource(Res.string.repo_bio_empty) },
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )

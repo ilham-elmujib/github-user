@@ -1,3 +1,5 @@
+import kotlinx.kover.features.jvm.KoverLegacyFeatures.verify
+import kotlinx.kover.gradle.aggregation.settings.dsl.KoverSettingsExtension
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -83,3 +85,16 @@ kotlin {
 dependencies {
     androidRuntimeClasspath(libs.compose.uiTooling)
 }
+
+//extensions.configure<KoverSettingsExtension> {
+//    enableCoverage()
+//    reports {
+//        includedClasses.addAll(
+//            "com.example.data.*.implementation.repository.*",
+//            "com.example.viewmodel.*"
+//        )
+//        excludedClasses.addAll(
+//            "*ViewModelModule*"
+//        )
+//    }
+//}

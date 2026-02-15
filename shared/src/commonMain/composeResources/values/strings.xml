@@ -16,7 +16,7 @@
     <string name="repo_following_title">Following</string>
     <string name="repo_language_empty">Language not defined</string>
     <string name="repo_description_empty">No description</string>
-    <string name="repo_location_empty">Location unknown</string>
+    <string name="repo_bio_empty">No bio</string>
     <string name="repo_button_see_all">See All</string>
     <string name="repo_button_view_blog">View Blog</string>
     <string name="repo_blog_dialog_not_found_title">Blog not found</string>
