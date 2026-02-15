@@ -2,6 +2,7 @@ package database
 
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.driver.NativeSQLiteDriver
 import kotlinx.cinterop.ExperimentalForeignApi
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
@@ -22,6 +23,8 @@ actual class DatabaseFactory {
         println("Location: $dbFilePath")
         return Room.databaseBuilder<AppDatabase>(
             name = dbFilePath,
-        ).build()
+        )
+            .setDriver(NativeSQLiteDriver())
+            .build()
     }
 }

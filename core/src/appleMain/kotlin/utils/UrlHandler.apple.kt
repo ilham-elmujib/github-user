@@ -7,7 +7,13 @@ actual class UrlHandler {
     actual fun openUrl(url: String) {
         val nsUrl = NSURL.URLWithString(url)
         if (nsUrl != null) {
-            UIApplication.sharedApplication.openURL(nsUrl)
+            val application = UIApplication.sharedApplication
+
+            application.openURL(
+                url = nsUrl,
+                options = emptyMap<Any?, Any?>(),
+                completionHandler = null
+            )
         }
     }
 }
