@@ -21,7 +21,7 @@ class RepoRepositoryImpl(
         remote.getAll(login)?.toEntities()?.also { entities ->
             local.saveAll(entities)
         }
-        local.getAll()
+        local.getByUserLogin(login)
             .map { it.toDomains() }
             .also { emitAll(it) }
     }

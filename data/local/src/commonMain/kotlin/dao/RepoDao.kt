@@ -12,8 +12,8 @@ interface RepoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(repos: List<RepoEntity>)
 
-    @Query("SELECT * FROM repositories")
-    fun getAll(): Flow<List<RepoEntity>>
+    @Query("SELECT * FROM repositories WHERE owner_login = :login")
+    fun getByUserLogin(login: String): Flow<List<RepoEntity>>
 
     @Query("DELETE FROM repositories")
     suspend fun deleteAll()

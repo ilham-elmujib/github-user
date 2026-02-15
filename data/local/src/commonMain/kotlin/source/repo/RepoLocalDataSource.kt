@@ -5,6 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface RepoLocalDataSource {
     suspend fun saveAll(repos: List<RepoEntity>)
-    fun getAll(): Flow<List<RepoEntity>>
+    fun getByUserLogin(login: String): Flow<List<RepoEntity>>
 }
 

@@ -5,7 +5,7 @@
     <string name="global_error_message">Something went wrong.</string>
     <string name="global_error_retry">Retry</string>
 
-    <string name="user_search_placeholder">Search users...</string>
+    <string name="user_search_placeholder">Search GitHub users...</string>
     <string name="user_empty_message">No users found.</string>
     <string name="user_select_message">Please select user first</string>
 

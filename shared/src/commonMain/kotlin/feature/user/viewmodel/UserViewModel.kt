@@ -2,6 +2,7 @@ package feature.user.viewmodel
 
 import androidx.lifecycle.viewModelScope
 import base.BaseViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
@@ -15,6 +16,8 @@ class UserViewModel(
     private val getUsersByNameUseCase: GetUsersByNameUseCase,
     private val getUserRepoUseCase: GetUserRepoUseCase
 ) : BaseViewModel<UserContract.Event, UserContract.State, UserContract.Effect>() {
+
+    private var searchJob: Job? = null
 
     init {
         getUsers()
@@ -99,8 +102,15 @@ class UserViewModel(
     }
 
     private fun getUsersByName(searchQuery: String) {
-        viewModelScope.launch {
-            delay(1_000)
+        searchJob?.cancel()
+
+        if (searchQuery.isEmpty()) {
+            setState { copy(filteredUsersResult = usersResult) }
+            return
+        }
+
+        searchJob = viewModelScope.launch {
+            delay(500)
             setState { copy(filteredUsersResult = UiResult.Loading) }
             getUsersByNameUseCase
                 .invoke(searchQuery)

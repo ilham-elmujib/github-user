@@ -11,7 +11,7 @@ class RepoLocalDataSourceImpl(
         dao.insertAll(repos)
     }
 
-    override fun getAll(): Flow<List<RepoEntity>> {
-        return dao.getAll()
+    override fun getByUserLogin(login: String): Flow<List<RepoEntity>> {
+        return dao.getByUserLogin(login)
     }
 }
