@@ -8,6 +8,7 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import feature.user.component.UserContent
 import feature.user.component.UserDetailContent
 import feature.user.component.UserSearchBar
@@ -33,6 +34,7 @@ fun UserTablet(
         Row(
             modifier = Modifier
                 .padding(it)
+                .padding(top = 8.dp)
                 .fillMaxSize()
         ) {
             UserContent(

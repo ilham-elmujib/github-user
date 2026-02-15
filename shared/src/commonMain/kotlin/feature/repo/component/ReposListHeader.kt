@@ -50,9 +50,9 @@ private fun ScoreSession(user: User) {
             imageUrl = user.avatarUrl,
             displayName = user.name
         )
-
         Row(
-            horizontalArrangement = Arrangement.spacedBy(24.dp),
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
             ScoreItem(user.publicRepos, stringResource(Res.string.repo_score_title))

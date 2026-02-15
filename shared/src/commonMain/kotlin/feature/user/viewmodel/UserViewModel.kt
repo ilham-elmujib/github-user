@@ -7,7 +7,6 @@ import kotlinx.coroutines.launch
 import model.UiResult
 import usecase.GetUserRepoUseCase
 import usecase.GetUsersUseCase
-import kotlin.math.log
 
 class UserViewModel(
     private val getUsersUseCase: GetUsersUseCase,
@@ -93,9 +92,6 @@ class UserViewModel(
                                 usersResult = UiResult.Success(it),
                                 allUsers = it
                             )
-                        }
-                        result.getOrNull()?.firstOrNull()?.let { user ->
-                           onEvent(UserContract.Event.OnSelectUserItem(user.login))
                         }
                     }
                     result.onFailure {
