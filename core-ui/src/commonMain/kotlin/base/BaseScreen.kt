@@ -27,12 +27,6 @@ abstract class BaseScreen<VM : BaseViewModel<Event, State, Effect>, Event : UiEv
         val snackBarHostState = remember { SnackbarHostState() }
 
         LaunchedEffect(Unit) {
-            onInitData(
-                onEvent = onEvent
-            )
-        }
-
-        LaunchedEffect(Unit) {
             uiEffect.collectLatest { uiEffect ->
                 handleEffect(
                     uiState = uiState,
@@ -83,10 +77,6 @@ abstract class BaseScreen<VM : BaseViewModel<Event, State, Effect>, Event : UiEv
     protected open fun DialogContent(
         onEvent: (Event) -> Unit,
         uiState: State,
-    ) = Unit
-
-    protected open suspend fun onInitData(
-        onEvent: (Event) -> Unit,
     ) = Unit
 
     protected open suspend fun handleEffect(

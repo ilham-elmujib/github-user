@@ -7,7 +7,7 @@ import response.UserResponse
 
 fun UserResponse.toEntity(): UserEntity {
     return UserEntity(
-        id = this.id ?: 0,
+        id = this.id,
         login = this.login.orEmpty(),
         nodeId = this.nodeId,
         avatarUrl = this.avatarUrl,

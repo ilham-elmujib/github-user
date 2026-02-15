@@ -1,15 +1,15 @@
-package co.id.ilhamelmujib.githubuser.feature.repo.component
+package feature.user.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import feature.repo.component.RepoList
+import feature.repo.component.RepoListHeader
 import component.molecule.EmptyContent
 import component.molecule.LoadingContent
 import component.organism.ErrorContent
-import feature.repo.component.RepoList
-import feature.repo.component.RepoListHeader
-import feature.repo.viewmodel.RepoContract
+import feature.user.viewmodel.UserContract
 import github_user.shared.generated.resources.Res
 import github_user.shared.generated.resources.global_error_retry
 import github_user.shared.generated.resources.global_loading_message
@@ -19,11 +19,11 @@ import model.UiResult
 import org.jetbrains.compose.resources.stringResource
 
 @Composable
-fun RepoContent(
+fun UserDetailContent(
     modifier: Modifier = Modifier,
-    onEvent: (RepoContract.Event) -> Unit,
-    uiState: RepoContract.State
-) {
+    uiState: UserContract.State,
+    onEvent: (UserContract.Event) -> Unit
+){
     Box(modifier = modifier.fillMaxSize()) {
         when (uiState.reposResult) {
             UiResult.Loading -> {
@@ -45,17 +45,17 @@ fun RepoContent(
                             RepoListHeader(
                                 user = data.user,
                                 onSeeAllClick = {
-                                    onEvent(RepoContract.Event.OnNavigateToBrowser(it))
+                                    onEvent(UserContract.Event.OnNavigateToBrowser(it))
                                 },
                                 onViewBlogClick = {
-                                    onEvent(RepoContract.Event.OnNavigateToBrowser(it))
+                                    onEvent(UserContract.Event.OnNavigateToBrowser(it))
 
                                 }
                             )
                         },
                         repos = data.repos,
                         onItemClick = {
-                            onEvent(RepoContract.Event.OnNavigateToBrowser(it))
+                            onEvent(UserContract.Event.OnNavigateToBrowser(it))
                         }
                     )
                 }
@@ -67,7 +67,7 @@ fun RepoContent(
                     resource = Res.drawable.ic_search,
                     retryButtonText = stringResource(Res.string.global_error_retry),
                     onRetry = {
-                        onEvent(RepoContract.Event.OnRetry)
+                        onEvent(UserContract.Event.OnRetryGetUserDetail)
                     }
                 )
             }

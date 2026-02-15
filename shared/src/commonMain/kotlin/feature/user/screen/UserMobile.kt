@@ -6,7 +6,7 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import co.id.ilhamelmujib.githubuser.feature.users.component.UserContent
+import feature.user.component.UserContent
 import feature.user.component.UserSearchBar
 import feature.user.viewmodel.UserContract
 
@@ -21,16 +21,21 @@ fun UserMobile(
         modifier = modifier,
         topBar = {
             UserSearchBar(
-                onEvent = onEvent,
-                uiState = uiState
+                uiState = uiState,
+                onEvent = onEvent
             )
         },
         snackbarHost = { SnackbarHost(snackBarHostState) }
     ) {
         UserContent(
             modifier = Modifier.padding(it),
-            onEvent = onEvent,
-            uiState = uiState
+            usersResult = uiState.usersResult,
+            onItemClick = { user ->
+                onEvent(UserContract.Event.OnNavigateToRepo(user.login))
+            },
+            onRetry = {
+                onEvent(UserContract.Event.OnRetryGetUsers)
+            }
         )
 
     }

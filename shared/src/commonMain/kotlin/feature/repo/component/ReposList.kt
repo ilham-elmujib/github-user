@@ -1,4 +1,4 @@
-package co.id.ilhamelmujib.githubuser.feature.repo.component
+package feature.repo.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,6 +8,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import co.id.ilhamelmujib.githubuser.feature.repo.component.RepoItem
 import model.Repo
 
 @Composable

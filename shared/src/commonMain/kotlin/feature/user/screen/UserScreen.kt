@@ -8,7 +8,8 @@ import feature.user.viewmodel.UserViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 class UserScreen(
-    private val navigateToRepo: (login: String) -> Unit
+    private val navigateToRepo: (login: String) -> Unit,
+    private val navigateToBrowser: (url: String) -> Unit,
 ): BaseScreen<UserViewModel, UserContract.Event, UserContract.State, UserContract.Effect>() {
 
     @Composable
@@ -48,6 +49,10 @@ class UserScreen(
         when (uiEffect) {
             is UserContract.Effect.NavigateToRepo -> {
                 navigateToRepo(uiEffect.login)
+            }
+
+            is UserContract.Effect.NavigateToBrowser -> {
+                navigateToBrowser(uiEffect.url)
             }
 
             is UserContract.Effect.ShowSnackBar -> {

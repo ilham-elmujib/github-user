@@ -1,5 +1,6 @@
 package feature.user.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -29,6 +30,12 @@ fun UserItem(
             .clickable {
                 onItemClick(user)
             }
+            .background(
+                color = when (user.isSelected) {
+                    true -> MaterialTheme.colorScheme.primary.copy(alpha = 0.1f)
+                    false -> MaterialTheme.colorScheme.background
+                }
+            )
             .padding(10.dp)
 
     ) {

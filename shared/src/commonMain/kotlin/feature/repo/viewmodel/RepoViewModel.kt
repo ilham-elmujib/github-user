@@ -9,18 +9,15 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.launch
 import model.UiResult
 import usecase.GetUserRepoUseCase
-import utils.UrlHandler
 
 class RepoViewModel(
-    savedStateHandle: SavedStateHandle,
-    private val urlHandler: UrlHandler,
+    private val savedStateHandle: SavedStateHandle,
     private val getUserRepoUseCase: GetUserRepoUseCase
 ) : BaseViewModel<RepoContract.Event, RepoContract.State, RepoContract.Effect>() {
 
     init {
-        val repo = savedStateHandle.toRoute<RepoRoute>()
-        setState { copy(login = repo.login) }
-        getUserRepo(repo.login)
+        setState { copy(login = savedStateHandle.toRoute<RepoRoute>().login) }
+        getUserRepo()
     }
 
     override fun createInitialState(): RepoContract.State {
@@ -33,7 +30,7 @@ class RepoViewModel(
     override fun handleEvent(event: RepoContract.Event) {
         when (event) {
             RepoContract.Event.OnRetry -> {
-                getUserRepo(currentState.login)
+                getUserRepo()
             }
 
             RepoContract.Event.OnNavigateToBack -> {
@@ -48,11 +45,11 @@ class RepoViewModel(
         }
     }
 
-    private fun getUserRepo(login: String) {
+    private fun getUserRepo() {
         viewModelScope.launch {
             setState { copy(reposResult = UiResult.Loading) }
             getUserRepoUseCase
-                .invoke(login)
+                .invoke(currentState.login)
                 .distinctUntilChanged()
                 .collect { result ->
                     result.onSuccess {

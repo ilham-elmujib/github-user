@@ -11,7 +11,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import co.id.ilhamelmujib.githubuser.feature.users.component.UserContent
 import feature.user.viewmodel.UserContract
 import github_user.shared.generated.resources.Res
 import github_user.shared.generated.resources.ic_close
@@ -76,8 +75,13 @@ fun UserSearchBar(
         },
     ) {
         UserContent(
-            onEvent = onEvent,
-            uiState = uiState
+            usersResult = uiState.usersResult,
+            onItemClick = {
+                onEvent(UserContract.Event.OnNavigateToRepo(it.login))
+            },
+            onRetry = {
+                onEvent(UserContract.Event.OnRetryGetUsers)
+            }
         )
     }
 }

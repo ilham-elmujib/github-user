@@ -11,8 +11,8 @@ import utils.UrlHandler
 
 class RepoScreen(
     private val navigateToBack: () -> Unit,
-    private val navigateToBrowser:(String) -> Unit,
-): BaseScreen<RepoViewModel, RepoContract.Event, RepoContract.State, RepoContract.Effect>() {
+    private val navigateToBrowser: (String) -> Unit,
+) : BaseScreen<RepoViewModel, RepoContract.Event, RepoContract.State, RepoContract.Effect>() {
 
     @Composable
     override fun viewModel(): RepoViewModel = koinViewModel<RepoViewModel>()
@@ -52,6 +52,7 @@ class RepoScreen(
             RepoContract.Effect.NavigateToBack -> {
                 navigateToBack()
             }
+
             is RepoContract.Effect.NavigateToBrowser -> {
                 navigateToBrowser(uiEffect.url)
             }

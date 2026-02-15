@@ -1,4 +1,4 @@
-package co.id.ilhamelmujib.githubuser.feature.repo.component
+package feature.repo.component
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*

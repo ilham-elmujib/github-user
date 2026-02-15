@@ -13,5 +13,6 @@ data class User(
     val bio: String,
     val publicRepos: Int,
     val followers: Int,
-    val following: Int
+    val following: Int,
+    val isSelected: Boolean = false
 )
